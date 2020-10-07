@@ -1,0 +1,5 @@
+<ngx-colors *ngIf="!isLoading" ngx-colors-trigger [(ngModel)]="color" (change)="changeColor()"></ngx-colors>
+<mat-progress-spinner class="center" *ngIf="isLoading"
+                      [mode]="'indeterminate'">
+</mat-progress-spinner>
+<div id="chart{{chartId}}"></div>

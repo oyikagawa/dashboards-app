@@ -1,0 +1,57 @@
+<div class="container grid">
+  <div class="item">
+    <div class="container-color flex" *ngFor="let chart of extChartService.curAddedCharts; let i = index">
+      <ngx-colors class="color" ngx-colors-trigger [(ngModel)]="chart.color" (change)="changeColor(chart.id, i, chart.color)"></ngx-colors>
+      <div class="color title">{{chart.title}}</div>
+    </div>
+  </div>
+  <div class="item">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Starting Month</mat-label>
+      <input matInput [matDatepicker]="dpFrom" [formControl]="dateFromControl" [min]="minDate" [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dpFrom
+                      startView="multi-year"
+                      (yearSelected)="chosenYearHandler(dateFromControl, $event)"
+                      (monthSelected)="chosenMonthHandler(dateFromControl, $event, dpFrom)">
+      </mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Ending Month</mat-label>
+      <input matInput [matDatepicker]="dpTo" [formControl]="dateToControl" [min]="minDate" [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
+      <mat-datepicker #dpTo
+                      startView="multi-year"
+                      (yearSelected)="chosenYearHandler(dateToControl, $event)"
+                      (monthSelected)="chosenMonthHandler(dateToControl, $event, dpTo)">
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="item">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>multiline_chart</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="changeChartsType($event)">
+        <span>Spline</span>
+      </button>
+      <button mat-menu-item (click)="changeChartsType($event)">
+        <span>Column</span>
+      </button>
+      <button mat-menu-item (click)="changeChartsType($event)">
+        <span>Area</span>
+      </button>
+    </mat-menu>
+    <mat-form-field class="field">
+      <mat-icon>add</mat-icon>
+      <mat-select class="select" [formControl]="additionalChartsControl" multiple>
+        <mat-option *ngFor="let chart of extChartService.chartsToAddArray" [value]="chart" (click)="addNewChart(chart)">{{chart.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<mat-progress-spinner class="center" *ngIf="isLoading" [mode]="'indeterminate'">
+</mat-progress-spinner>
+<div style="margin-right: 30px">
+  <div id="chart{{chartId}}"></div>
+</div>

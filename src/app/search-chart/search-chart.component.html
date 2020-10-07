@@ -1,0 +1,23 @@
+<div class="main">
+  <h1>Find required chart!</h1>
+  <form>
+    <mat-form-field style="width: 260px">
+      <input
+        type="text"
+        placeholder="Type the name of chart"
+        matInput
+        [formControl]="searchControl"
+        [matAutocomplete]="auto"
+        (keydown.enter)="redirectToDashboard()">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayView">
+        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+          {{option.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button type="button" (click)="redirectToDashboard()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
+  <router-outlet></router-outlet>
+</div>

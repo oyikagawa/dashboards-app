@@ -1,0 +1,61 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboards</h1>
+  <div style="margin-left: 14px">
+  <mat-form-field appearance="fill">
+    <mat-label>Choose Starting Month</mat-label>
+    <input matInput [matDatepicker]="dpFrom" [formControl]="dateFromControl" [min]="minDate" [max]="maxDate">
+    <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>
+    <mat-datepicker #dpFrom
+                    startView="multi-year"
+                    (yearSelected)="chosenYearHandler(dateFromControl, $event)"
+                    (monthSelected)="chosenMonthHandler(dateFromControl, $event, dpFrom)">
+    </mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose Ending Month</mat-label>
+    <input matInput [matDatepicker]="dpTo" [formControl]="dateToControl" [min]="minDate" [max]="maxDate">
+    <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
+    <mat-datepicker #dpTo
+                    startView="multi-year"
+                    (yearSelected)="chosenYearHandler(dateToControl, $event)"
+                    (monthSelected)="chosenMonthHandler(dateToControl, $event, dpTo)">
+    </mat-datepicker>
+  </mat-form-field>
+  <mat-slider
+    (change)="changeChartsAmount()"
+    [max]="4"
+    [min]="1"
+    [step]="1"
+    [thumbLabel]="true"
+    [(ngModel)]="chartsAmount">
+  </mat-slider>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>multiline_chart</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="changeChartsType($event)">
+      <span>Spline</span>
+    </button>
+    <button mat-menu-item (click)="changeChartsType($event)">
+      <span>Column</span>
+    </button>
+    <button mat-menu-item (click)="changeChartsType($event)">
+      <span>Area</span>
+    </button>
+  </mat-menu>
+  </div>
+  <mat-grid-list cols="2" rowHeight="550px">
+    <mat-grid-tile *ngFor="let dashboard of dashboards" [colspan]="dashboard.cols" [rowspan]="dashboard.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-content class="dashboard-card-content">
+          <app-chart
+            [chartId]="dashboard.id"
+            [dateFrom]="dateFrom"
+            [dateTo]="dateTo"
+            [chartType]="chartType"
+          ></app-chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

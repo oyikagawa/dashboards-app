@@ -1,0 +1,54 @@
+.grid {
+  display: grid;
+  grid-template-columns: 260px 500px 100px;
+}
+
+.container {
+  width: auto;
+  padding: 10px;
+}
+
+.item {
+  width: auto;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: middle
+}
+
+.column {
+  flex-direction: column;
+}
+.container-color {
+  width: auto;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-end;
+}
+
+.flex .color:first-child {
+  align-self: center;
+}
+
+.title {
+  margin-left: 10px;
+  margin-bottom: 4px;
+}
+
+.left {
+  padding-left: 25px;
+}
+
+.center {
+  margin:0 auto;
+}
+
+.field {
+  width: 0;
+  height: 0;
+}
+
+.select {
+  visibility: hidden;
+}
